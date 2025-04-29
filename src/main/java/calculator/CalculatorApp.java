@@ -29,7 +29,7 @@ public class CalculatorApp {
 
                     ArrayList<Double> results = calculator.getResultsGreaterThan(result);
                     if (!results.isEmpty()) {
-                        System.out.println(result+"보다 더 큰 수: "+calculator.getResultsGreaterThan(result));
+                        System.out.println(result+"보다 더 큰 수: "+results);
                     }
                 }catch (ArithmeticException e) {
                     System.out.println("0으로 나눌 수 없습니다.");
