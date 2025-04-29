@@ -1,25 +1,36 @@
 package calculator;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CalculatorApp {
     public static void main(String[] args) {
         // scanner 객체 생성
         Scanner scanner = new Scanner(System.in);
+
+        // 계산기 객체 생성
+        Calculator<Double> calculator = new Calculator<>();
+
         while (true){
             // 수식 입력
             try {
                 System.out.print("첫 번째 숫자 입력: ");
-                int a = scanner.nextInt();
+                double a = scanner.nextDouble();
                 System.out.print("연산 기호 입력(+, -, *, /): ");
                 char operator = scanner.next().charAt(0);
                 System.out.print("두번째 숫자 입력: ");
-                int b = scanner.nextInt();
+                double b = scanner.nextDouble();
 
-                Calculator calculator = new Calculator();
+                Operator op = Operator.fromChar(operator);
                 try {
-                    calculator.calculate(a, b, operator);
-                    System.out.println(a + " " + operator + " " + b + " = " + calculator.getResult());
+                    calculator.calculate(a, b, op);
+                    double result = calculator.getResult();
+                    System.out.println(a + " " + operator + " " + b + " = " + result);
+
+                    ArrayList<Double> results = calculator.getResultsGreaterThan(result);
+                    if (!results.isEmpty()) {
+                        System.out.println(result+"보다 더 큰 수: "+calculator.getResultsGreaterThan(result));
+                    }
                 }catch (ArithmeticException e) {
                     System.out.println("0으로 나눌 수 없습니다.");
                 }

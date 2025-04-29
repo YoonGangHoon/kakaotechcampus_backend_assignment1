@@ -1,33 +1,49 @@
 package calculator;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-public class Calculator {
+public class Calculator<T extends Number> {
 
-    private ArrayList<Integer> history = new ArrayList<>();
+    private ArrayList<Double> history = new ArrayList<>();
 
-    public void calculate(int a, int b, char operator) throws ArithmeticException {
-        if (operator == '+') {
-            history.add(a + b);
-        } else if (operator == '-') {
-            history.add(a - b);
-        } else if (operator == '*') {
-            history.add(a * b);
-        } else if (operator == '/') {
-            history.add(a / b);
+    public void calculate(T a, T b, Operator op){
+        double aDouble = a.doubleValue();
+        double bDouble = b.doubleValue();
+        switch (op) {
+            case PLUS:
+                history.add(aDouble+bDouble);
+                break;
+            case MINUS:
+                history.add(aDouble - bDouble);
+                break;
+            case MULTIPLY:
+                history.add(aDouble * bDouble);
+                break;
+            case DIVIDE:
+                if (bDouble == 0){
+                    throw new ArithmeticException();
+                }
+                else{
+                    history.add(aDouble / bDouble);
+                    break;
+                }
         }
     }
 
-    public int getResult() {
+    public double getResult() {
         return history.get(history.size()-1);
     }
 
-    public void setResult(int value) {
+    public void setResult(T value) {
         if (!history.isEmpty()) {
             int lastIndex = history.size() - 1;
-            history.set(lastIndex, value);
+            history.set(lastIndex, value.doubleValue());
         }
     }
 
+    public ArrayList<Double> getResultsGreaterThan(T target) {
+        return history.stream()
+                .filter(n -> n.doubleValue() > target.doubleValue())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 }
