@@ -11,33 +11,21 @@ public class CalculatorApp {
             try {
                 System.out.print("첫 번째 숫자 입력: ");
                 int a = scanner.nextInt();
-                System.out.print("연산 기호 입력: ");
+                System.out.print("연산 기호 입력(+, -, *, /): ");
                 char operator = scanner.next().charAt(0);
                 System.out.print("두번째 숫자 입력: ");
                 int b = scanner.nextInt();
 
-                // 연산
-                if (operator == '+') {
-                    System.out.println("두 수의 합: " + (a + b));
+                Calculator calculator = new Calculator();
+                try {
+                    calculator.calculate(a, b, operator);
+                    System.out.println(a + " " + operator + " " + b + " = " + calculator.getResult());
+                }catch (ArithmeticException e) {
+                    System.out.println("0으로 나눌 수 없습니다.");
                 }
-                else if (operator == '-') {
-                    System.out.println("두 수의 차: " + (a - b));
-                }
-                else if (operator == '*') {
-                    System.out.println("두 수의 곱: " + (a * b));
-                }
-                else if (operator == '/') {
-                    try {
-                        System.out.println("두 수의 합: " + (a / b));
-                    } catch (ArithmeticException e) {
-                        System.out.println("0으로는 나눌 수 없습니다.");
-                    }
-                }
-                else {
-                    System.out.println("정의된 연산 기호는 (+, -, *, /) 입니다.");
-                }
+
             } catch (Exception e) {
-                System.out.println("정수를 입력하십시오.");
+                System.out.println("올바르지 않은 수식입니다.");
                 scanner.nextLine();
             }
 
