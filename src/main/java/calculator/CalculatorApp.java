@@ -32,7 +32,7 @@ public class CalculatorApp {
                         System.out.println(result+"보다 더 큰 수: "+results);
                     }
                 }catch (ArithmeticException e) {
-                    System.out.println("0으로 나눌 수 없습니다.");
+                    System.out.println("0으로 나눌 수 없습니다!");
                 }
 
             } catch (Exception e) {
